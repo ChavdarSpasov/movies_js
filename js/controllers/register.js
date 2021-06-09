@@ -13,24 +13,21 @@ export default async function register() {
 
 
 export async function registerPost()  {
-
-    if(this.params.password !== this.params.repeatPassword) {
-        console.log('ok')
-        alert('Password don\'t match');
-        return;
-    }
-
-    if(this.params.username.length < 3) {
-        alert('Usename must be atleast 3 characters long');
-        return;
-    }
-
-    if(this.params.password.length < 6) {
-        alert('Password must be atleast 6  characters long');
-        return;
-    }
-
     try {
+
+        if(this.params.password !== this.params.repeatPassword) {
+            console.log('password do not match')
+            throw new Error('Password don\'t match');
+        }
+    
+        if(this.params.username.length < 3) {
+            throw new Error('Usename must be atleast 3 characters long');
+        }
+    
+        if(this.params.password.length < 6) {
+            throw new Error('Password must be atleast 6  characters long');
+        }
+
         const result = await apiRegister(this.params.username, this.params.password);
         if(result.hasOwnProperty('errorData')) {
             const error = new Error();
@@ -38,8 +35,7 @@ export async function registerPost()  {
             throw error;
         }
 
-        showInfo('Successffuly register');
-
+        showInfo('Successffuly registerd');
         this.redirect('#/login');
     } catch (err) {
         console.error(err);

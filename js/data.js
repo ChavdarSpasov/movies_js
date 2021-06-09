@@ -162,10 +162,11 @@ export async function deleteMovie(id) {
     return result;
 }
 
-export async function getMovieByOwner(ownerId) {
+export async function getMovieByOwner() {
     startRequest();
 
     const token = localStorage.getItem('userToken');
+    const ownerId = localStorage.getItem('userId')
 
     const result = (await fetch(host(endpoint.MOVIES + `?where=ownerId%3D%27${ownerId}%27`), {
         headers: {
@@ -180,6 +181,10 @@ export async function getMovieByOwner(ownerId) {
 }
 
 export async function buyTicket(movie) {
+    if(movie.tickets == 0){
+        throw new Error('Tickes is zero');
+    }
+
     const newTicket = movie.tickets - 1;
     const movieId = movie.objectId; 
 

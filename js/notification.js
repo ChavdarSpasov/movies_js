@@ -9,8 +9,8 @@ elemnts.info.addEventListener('click', hideInfo);
 elemnts.error.addEventListener('click', hideError);
 
 
-export function showInfo(data) {
-    elemnts.info.children[0].textContent = data;
+export function showInfo(message) {
+    elemnts.info.children[0].textContent = message;
     elemnts.info.style.display = 'block';
 
     setTimeout(hideInfo, 3000);
@@ -20,8 +20,8 @@ function hideInfo() {
     elemnts.info.style.display = 'none';
 }
 
-export function showError(data) {
-    elemnts.error.children[0].textContent = data;
+export function showError(message) {
+    elemnts.error.children[0].textContent = message;
     elemnts.error.style.display = 'block';
 }
 
