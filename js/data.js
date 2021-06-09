@@ -74,16 +74,27 @@ export async function logout() {
 
 }
 
-export async function getMovies() {
+export async function getMovies(search) {
     startRequest();
 
     const token = localStorage.getItem('userToken');
 
-    const result = (await fetch(host(endpoint.MOVIES), {
-        headers: {
-            'user-token': token
-        }
-    })).json();
+    let result;
+
+    if(!search) {
+        result = (await fetch(host(endpoint.MOVIES), {
+            headers: {
+                'user-token': token
+            }
+        })).json();
+    } else {
+        result = (await fetch(host(endpoint.MOVIES + `?where=${escape(`genres LIKE '%${search}'`)}%`), {
+            headers: {
+                'user-token': token
+            }
+        })).json();
+    }
+
 
     endRequest();
     
