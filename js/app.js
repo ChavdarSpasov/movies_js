@@ -4,7 +4,7 @@ import home from './controllers/home.js';
 import register, { registerPost } from './controllers/register.js';
 import login, { loginPost } from './controllers/login.js';
 import logout from './controllers/logout.js';
-import catalog, {buyTicket, create, createPost, details, edit, myMovies} from './controllers/movies.js';
+import catalog, {buyTicket, create, createPost, details, edit, myMovies, editPost} from './controllers/movies.js';
 
 window.addEventListener('load', () => {
 
@@ -49,7 +49,8 @@ window.addEventListener('load', () => {
             this.post('#/create', ctx => { createPost.call(ctx)});
 
             this.get('#/buy/:id', buyTicket);
-
+            
+            this.post('#/edit/:id', ctx => { editPost.call(ctx)})
         });
 
         app.run();
